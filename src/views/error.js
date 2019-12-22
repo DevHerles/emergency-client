@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { Colxx } from "../components/common/CustomBootstrap";
 import IntlMessages from "../helpers/IntlMessages";
 
-
 class Error extends Component {
   componentDidMount() {
     document.body.classList.add("background");

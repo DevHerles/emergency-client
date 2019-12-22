@@ -7,25 +7,27 @@ import classnames from "classnames";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import ApplicationMenu from "../../components/common/ApplicationMenu";
-
-import { getSurveyListWithFilter } from "../../redux/actions";
-export class SurveyApplicationMenu extends Component {
+import { getEmergencyListWithFilter } from "../../redux/actions";
+class EmergencyApplicationMenu extends Component {
   constructor(props) {
     super();
   }
 
-  addFilter(column, value) {
-    this.props.getSurveyListWithFilter(column, value);
-  }
+  addFilter = (column, value) => {
+    this.props.getEmergencyListWithFilter(column, value);
+  };
+
   render() {
     const {
-      surveyItems,
+      emergencyItems,
       filter,
-      allSurveyItems,
+      allEmergencyItems,
       loading,
       labels,
       categories
-    } = this.props.surveyListApp;
+    } = this.props.emergencyApp;
+
+    console.log(this.props.emergencyApp);
 
     return (
       <ApplicationMenu>
@@ -34,16 +36,15 @@ export class SurveyApplicationMenu extends Component {
         >
           <div className="p-4">
             <p className="text-muted text-small">
-              <IntlMessages id="survey.status" />
-              Status
+              <IntlMessages id="todo.status" />
             </p>
             <ul className="list-unstyled mb-5">
               <NavItem className={classnames({ active: !filter })}>
                 <NavLink to="#" onClick={e => this.addFilter("", "")}>
                   <i className="simple-icon-reload" />
-                  <IntlMessages id="survey.all-surveys" />
+                  <IntlMessages id="todo.all-tasks" />
                   <span className="float-right">
-                    {loading && allSurveyItems.length}
+                    {loading && allEmergencyItems.length}
                   </span>
                 </NavLink>
               </NavItem>
@@ -52,18 +53,18 @@ export class SurveyApplicationMenu extends Component {
                   active:
                     filter &&
                     filter.column === "status" &&
-                    filter.value === "ACTIVE"
+                    filter.value === "PENDING"
                 })}
               >
                 <NavLink
                   to="#"
-                  onClick={e => this.addFilter("status", "ACTIVE")}
+                  onClick={e => this.addFilter("status", "PENDING")}
                 >
                   <i className="simple-icon-refresh" />
-                  <IntlMessages id="survey.active-surveys" />
+                  <IntlMessages id="todo.pending-tasks" />
                   <span className="float-right">
                     {loading &&
-                      surveyItems.filter(x => x.status === "ACTIVE").length}
+                      allEmergencyItems.filter(x => x.status === "PENDING").length}
                   </span>
                 </NavLink>
               </NavItem>
@@ -80,16 +81,16 @@ export class SurveyApplicationMenu extends Component {
                   onClick={e => this.addFilter("status", "COMPLETED")}
                 >
                   <i className="simple-icon-check" />
-                  <IntlMessages id="survey.completed-surveys" />
+                  <IntlMessages id="todo.completed-tasks" />
                   <span className="float-right">
                     {loading &&
-                      surveyItems.filter(x => x.status === "COMPLETED").length}
+                      allEmergencyItems.filter(x => x.status === "COMPLETED").length}
                   </span>
                 </NavLink>
               </NavItem>
             </ul>
             <p className="text-muted text-small">
-              <IntlMessages id="survey.categories" />
+              <IntlMessages id="todo.categories" />
             </p>
             <ul className="list-unstyled mb-5">
               {categories.map((c, index) => {
@@ -114,7 +115,7 @@ export class SurveyApplicationMenu extends Component {
               })}
             </ul>
             <p className="text-muted text-small">
-              <IntlMessages id="survey.labels" />
+              <IntlMessages id="todo.labels" />
             </p>
             <div>
               {labels.map((l, index) => {
@@ -148,14 +149,15 @@ export class SurveyApplicationMenu extends Component {
     );
   }
 }
-const mapStateToProps = ({ surveyListApp }) => {
+
+const mapStateToProps = ({ emergencyApp }) => {
   return {
-    surveyListApp
+    emergencyApp
   };
 };
 export default connect(
   mapStateToProps,
   {
-    getSurveyListWithFilter
+    getEmergencyListWithFilter
   }
-)(SurveyApplicationMenu);
+)(EmergencyApplicationMenu);

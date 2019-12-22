@@ -1,19 +1,19 @@
 import {
-	CALLS_GET_LIST,
-	CALLS_GET_LIST_SUCCESS,
-	CALLS_GET_LIST_ERROR,
-	CALLS_GET_LIST_WITH_FILTER,
-	CALLS_GET_LIST_WITH_ORDER,
-	CALLS_GET_LIST_SEARCH,
-	CALLS_ADD_ITEM,
-	CALLS_ADD_ITEM_SUCCESS,
-	CALLS_ADD_ITEM_ERROR,
-	CALLS_SELECTED_ITEMS_CHANGE
+	EMERGENCY_GET_LIST,
+	EMERGENCY_GET_LIST_SUCCESS,
+	EMERGENCY_GET_LIST_ERROR,
+	EMERGENCY_GET_LIST_WITH_FILTER,
+	EMERGENCY_GET_LIST_WITH_ORDER,
+	EMERGENCY_GET_LIST_SEARCH,
+	EMERGENCY_ADD_ITEM,
+	EMERGENCY_ADD_ITEM_SUCCESS,
+	EMERGENCY_ADD_ITEM_ERROR,
+	EMERGENCY_SELECTED_ITEMS_CHANGE
 } from '../actions';
 
 const INIT_STATE = {
-	allCallsItems: null,
-	callsItems: null,
+	allEmergencyItems: null,
+	emergencyItem: null,
 	error: '',
 	filter: null,
 	searchKeyword: '',
@@ -30,41 +30,41 @@ const INIT_STATE = {
 		{ column: "status", label: "Status" },
 		{ column: "label", label: "Label" },
 	],
-	categories: ["Flexbox", "Sass", "React"],
+	categories: ["Emergency", "Sass", "React"],
 	selectedItems: []
 };
 
 export default (state = INIT_STATE, action) => {
 	switch (action.type) {
 
-		case CALLS_GET_LIST:
+		case EMERGENCY_GET_LIST:
 			return { ...state, loading: false };
 
-		case CALLS_GET_LIST_SUCCESS:
-			return { ...state, loading: true, allCallsItems: action.payload, callsItems: action.payload };
+		case EMERGENCY_GET_LIST_SUCCESS:
+			return { ...state, loading: true, allEmergencyItems: action.payload.data, emergencyItem: action.payload.data };
 
-		case CALLS_GET_LIST_ERROR:
+		case EMERGENCY_GET_LIST_ERROR:
 			return { ...state, loading: true, error: action.payload };
 
-		case CALLS_GET_LIST_WITH_FILTER:
+		case EMERGENCY_GET_LIST_WITH_FILTER:
 			if (action.payload.column === '' || action.payload.value === '') {
-				return { ...state, loading: true, callsItems: state.allCallsItems, filter: null };
+				return { ...state, loading: true, emergencyItem: state.allEmergencyItems, filter: null };
 			} else {
-				const filteredItems = state.allCallsItems.filter((item) =>
+				const filteredItems = state.allEmergencyItems.filter((item) =>
 					item[action.payload.column] === action.payload.value);
 				return {
-					...state, loading: true, callsItems: filteredItems, filter: {
+					...state, loading: true, emergencyItem: filteredItems, filter: {
 						column: action.payload.column,
 						value: action.payload.value
 					}
 				}
 			}
 
-		case CALLS_GET_LIST_WITH_ORDER:
+		case EMERGENCY_GET_LIST_WITH_ORDER:
 			if (action.payload === '') {
-				return { ...state, loading: true, callsItems: state.callsItems, orderColumn: null };
+				return { ...state, loading: true, emergencyItem: state.emergencyItem, orderColumn: null };
 			} else {
-				const sortedItems = state.callsItems.sort((a, b) => {
+				const sortedItems = state.emergencyItem.sort((a, b) => {
 					if (
 						a[action.payload] <
 						b[action.payload]
@@ -77,29 +77,29 @@ export default (state = INIT_STATE, action) => {
 						return 1;
 					return 0;
 				})
-				return { ...state, loading: true, callsItems: sortedItems, orderColumn: state.orderColumns.find(x => x.column === action.payload) }
+				return { ...state, loading: true, emergencyItem: sortedItems, orderColumn: state.orderColumns.find(x => x.column === action.payload) }
 			}
 
-		case CALLS_GET_LIST_SEARCH:
+		case EMERGENCY_GET_LIST_SEARCH:
 			if (action.payload === '') {
-				return { ...state, callsItems: state.allCallsItems };
+				return { ...state, emergencyItem: state.allEmergencyItems };
 			} else {
 				const keyword = action.payload.toLowerCase();
-				const searchItems = state.allCallsItems.filter((item) =>
+				const searchItems = state.allEmergencyItems.filter((item) =>
 					item.title.toLowerCase().indexOf(keyword) > -1 || item.detail.toLowerCase().indexOf(keyword) > -1 || item.status.toLowerCase().indexOf(keyword) > -1 || item.category.toLowerCase().indexOf(keyword) > -1 || item.label.toLowerCase().indexOf(keyword) > -1);
-				return { ...state, loading: true, callsItems: searchItems, searchKeyword: action.payload }
+				return { ...state, loading: true, emergencyItem: searchItems, searchKeyword: action.payload }
 			}
 
-		case CALLS_ADD_ITEM:
+		case EMERGENCY_ADD_ITEM:
 			return { ...state, loading: false };
 
-		case CALLS_ADD_ITEM_SUCCESS:
-			return { ...state, loading: true, allCallsItems: action.payload, callsItems: action.payload };
+		case EMERGENCY_ADD_ITEM_SUCCESS:
+			return { ...state, loading: true, allEmergencyItems: action.payload, emergencyItem: action.payload };
 
-		case CALLS_ADD_ITEM_ERROR:
+		case EMERGENCY_ADD_ITEM_ERROR:
 			return { ...state, loading: true, error: action.payload };
 
-		case CALLS_SELECTED_ITEMS_CHANGE:
+		case EMERGENCY_SELECTED_ITEMS_CHANGE:
 			return { ...state, loading: true, selectedItems: action.payload};
 		default: return { ...state };
 	}

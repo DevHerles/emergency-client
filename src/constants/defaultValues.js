@@ -13,16 +13,17 @@ export const localeOptions = [
 ];
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBBksq-Asxq2M4Ot-75X19IyrEYJqNBPcg",
-  authDomain: "gogo-react-login.firebaseapp.com",
-  databaseURL: "https://gogo-react-login.firebaseio.com",
-  projectId: "gogo-react-login",
-  storageBucket: "gogo-react-login.appspot.com",
-  messagingSenderId: "216495999563"
+  apiKey: "AIzaSyADRPXBQJXBVFAOAQEQdm0D8I0wYiQgCLQ",
+  authDomain: "emergency-f1f7a.firebaseapp.com",
+  databaseURL: "https://emergency-f1f7a.firebaseio.com",
+  projectId: "emergency-f1f7a",
+  storageBucket: "emergency-f1f7a.appspot.com",
+  messagingSenderId: "679995520268"
 };
 
 export const searchPath = "/app/pages/search";
 export const servicePath = "https://api.coloredstrategies.com";
+export const emergencyApi = "http://localhost:5001";
 
 /* 
 Color Options:

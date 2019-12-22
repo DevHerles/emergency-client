@@ -17,12 +17,17 @@ import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 
-import { getCallsList } from "../../../redux/actions";
-import CallListItem from "../../../components/emergencies/CallListItem";
-import AddNewCallModal from "../../../containers/emergencies/AddNewCallModal";
-import CallEmergencyMenu from "../../../containers/emergencies/CallEmergencyMenu";
+import {
+  getEmergencyList,
+  getEmergencyListWithOrder,
+  getEmergencyListSearch,
+  selectedEmergencyItemsChange
+} from "../../../redux/actions";
+import EmergencyListItem from "../../../components/emergencies/EmergencyListItem";
+import AddNewEmergencyModal from "../../../containers/emergencies/AddNewEmergencyModal";
+import EmergencyApplicationMenu from "../../../containers/emergencies/EmergencyApplicationMenu";
 
-class CallApp extends Component {
+class EmergencyApp extends Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +41,7 @@ class CallApp extends Component {
   }
 
   componentDidMount() {
-    this.props.getCallsList();
+    this.props.getEmergencyList();
   }
 
   toggleDisplayOptions = () => {
@@ -56,12 +61,12 @@ class CallApp extends Component {
   };
 
   changeOrderBy = column => {
-    this.props.getCallsListWithOrder(column);
+    this.props.getEmergencyListWithOrder(column);
   };
 
   handleKeyPress = e => {
     if (e.key === "Enter") {
-      this.props.getCallsListSearch(e.target.value);
+      this.props.getEmergencyListSearch(e.target.value);
     }
   };
 
@@ -72,16 +77,16 @@ class CallApp extends Component {
       });
     }
 
-    let selectedItems = Object.assign([], this.props.todoApp.selectedItems);
+    let selectedItems = Object.assign([], this.props.emergencyApp.selectedItems);
     if (selectedItems.includes(id)) {
       selectedItems = selectedItems.filter(x => x !== id);
     } else {
       selectedItems.push(id);
     }
-    this.props.selectedCallItemsChange(selectedItems);
+    this.props.selectedEmergencyItemsChange(selectedItems);
 
     if (event.shiftKey) {
-      var items = this.props.todoApp.callItems;
+      var items = this.props.emergencyApp.emergencyItems;
       var start = this.getIndex(id, items, "id");
       var end = this.getIndex(this.state.lastChecked, items, "id");
       items = items.slice(Math.min(start, end), Math.max(start, end) + 1);
@@ -91,21 +96,21 @@ class CallApp extends Component {
         })
       );
       selectedItems = Array.from(new Set(selectedItems));
-      this.props.selectedCallItemsChange(selectedItems);
+      this.props.selectedEmergencyItemsChange(selectedItems);
     }
     return;
   };
 
   handleChangeSelectAll = () => {
-    if (this.props.todoApp.loading) {
+    if (this.props.emergencyApp.loading) {
       if (
-        this.props.todoApp.selectedItems.length >=
-        this.props.todoApp.callItems.length
+        this.props.emergencyApp.selectedItems.length >=
+        this.props.emergencyApp.emergencyItems.length
       ) {
-        this.props.selectedCallItemsChange([]);
+        this.props.selectedEmergencyItemsChange([]);
       } else {
-        this.props.selectedCallItemsChange(
-          this.props.todoApp.callItems.map(x => x.id)
+        this.props.selectedEmergencyItemsChange(
+          this.props.emergencyApp.emergencyItems.map(x => x.id)
         );
       }
     }
@@ -122,13 +127,15 @@ class CallApp extends Component {
 
   render() {
     const {
-      callItems,
       searchKeyword,
       loading,
       orderColumn,
       orderColumns,
       selectedItems
-    } = this.props.todoApp;
+    } = this.props.emergencyApp;
+
+    const emergencyItems = this.props.emergencyApp;
+    const allEmergencyItems = this.props.emergencyApp.allEmergencyItems;
 
     const { messages } = this.props.intl;
 
@@ -139,7 +146,7 @@ class CallApp extends Component {
           <Colxx xxs="12">
             <div className="mb-2">
               <h1>
-                <IntlMessages id="emergency" />
+                <IntlMessages id="menu.emergency" />
               </h1>
               {loading && (
                 <div className="float-sm-right">
@@ -149,7 +156,7 @@ class CallApp extends Component {
                     className="top-right-button"
                     onClick={this.toggleModal}
                   >
-                    <IntlMessages id="todo.add-new" />
+                    <IntlMessages id="emergency.add-new" />
                   </Button>{" "}
                   <ButtonDropdown
                     isOpen={this.state.dropdownSplitOpen}
@@ -161,7 +168,7 @@ class CallApp extends Component {
                         type="checkbox"
                         id="checkAll"
                         checked={
-                          selectedItems.length >= callItems.length
+                          selectedItems.length >= allEmergencyItems.length
                         }
                         onClick={() => this.handleChangeSelectAll()}
                         onChange={() => this.handleChangeSelectAll()}
@@ -169,7 +176,7 @@ class CallApp extends Component {
                           <span
                             className={`custom-control-label ${
                               selectedItems.length > 0 &&
-                              selectedItems.length < callItems.length
+                              selectedItems.length < emergencyItems.length
                                 ? "indeterminate"
                                 : ""
                             }`}
@@ -184,10 +191,10 @@ class CallApp extends Component {
                     />
                     <DropdownMenu right>
                       <DropdownItem>
-                        <IntlMessages id="todo.action" />
+                        <IntlMessages id="emergency.action" />
                       </DropdownItem>
                       <DropdownItem>
-                        <IntlMessages id="todo.another-action" />
+                        <IntlMessages id="emergency.another-action" />
                       </DropdownItem>
                     </DropdownMenu>
                   </ButtonDropdown>
@@ -203,7 +210,7 @@ class CallApp extends Component {
                 className="pt-0 pl-0 d-inline-block d-md-none"
                 onClick={this.toggleDisplayOptions}
               >
-                <IntlMessages id="todo.display-options" />{" "}
+                <IntlMessages id="emergency.display-options" />{" "}
                 <i className="simple-icon-arrow-down align-middle" />
               </Button>
               <Collapse
@@ -213,7 +220,7 @@ class CallApp extends Component {
                 <div className="d-block mb-2 d-md-inline-block">
                   <UncontrolledDropdown className="mr-1 float-md-left btn-group mb-1">
                     <DropdownToggle caret color="outline-dark" size="xs">
-                      <IntlMessages id="todo.orderby" />
+                      <IntlMessages id="emergency.orderby" />
                       {orderColumn ? orderColumn.label : ""}
                     </DropdownToggle>
                     <DropdownMenu>
@@ -245,9 +252,9 @@ class CallApp extends Component {
             <Separator className="mb-5" />
             <Row>
               {loading ? (
-                callItems.map((item, index) => (
-                  <CallListItem
-                    key={`todo_item_${index}`}
+                allEmergencyItems.map((item, index) => (
+                  <EmergencyListItem
+                    key={`emergency_item_${index}`}
                     item={item}
                     handleCheckChange={this.handleCheckChange}
                     isSelected={
@@ -261,22 +268,25 @@ class CallApp extends Component {
             </Row>
           </Colxx>
         </Row>
-        {loading && <CallEmergencyMenu />}
-        <AddNewCallModal toggleModal={this.toggleModal} modalOpen={modalOpen} />
+        {loading && <EmergencyApplicationMenu />}
+        <AddNewEmergencyModal toggleModal={this.toggleModal} modalOpen={modalOpen} />
       </Fragment>
     );
   }
 }
-const mapStateToProps = ({ todoApp }) => {
+const mapStateToProps = ({ emergencyApp }) => {
   return {
-    todoApp
+    emergencyApp
   };
 };
 export default injectIntl(
   connect(
     mapStateToProps,
     {
-      getCallsList
+      getEmergencyList,
+      getEmergencyListWithOrder,
+      getEmergencyListSearch,
+      selectedEmergencyItemsChange
     }
-  )(CallApp)
+  )(EmergencyApp)
 );

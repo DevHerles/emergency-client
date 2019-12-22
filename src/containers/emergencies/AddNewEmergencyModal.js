@@ -14,41 +14,44 @@ import Select from "react-select";
 import CustomSelectInput from "../../components/common/CustomSelectInput";
 import IntlMessages from "../../helpers/IntlMessages";
 
-import { addSurveyItem } from "../../redux/actions";
+import { addEmergencyItem } from "../../redux/actions";
 
-class AddNewSurveyModal extends Component {
+class AddNewEmergencyModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      label: {},
-      labelColor: "",
-      category: {},
+      code: "",
+      reason_call: "",
+      address: "",
+      phone_number: "",
+      category: "",
       status: "PENDING"
     };
   }
 
   addNetItem = () => {
     const newItem = {
-      title: this.state.title,
-      label: this.state.label.value,
-      labelColor: this.state.label.color,
-      category: this.state.category.value,
+      code: this.state.code,
+      reason_call: this.state.reason_call,
+      address: this.state.address,
+      phone_number: this.state.phone_number,
+      category: this.state.category,
       status: this.state.status
     };
-    this.props.addSurveyItem(newItem);
+    this.props.addEmergencyItem(newItem);
     this.props.toggleModal();
     this.setState({
-      title: "",
-      label: {},
-      category: {},
-      status: "ACTIVE"
+      code: "",
+      reason_call: "",
+      address: "",
+      category: "",
+      status: "PENDING"
     });
   };
 
   render() {
-    const { labels, categories } = this.props.surveyListApp;
+    const { labels, categories } = this.props.emergencyApp;
     const { modalOpen, toggleModal } = this.props;
     return (
       <Modal
@@ -58,11 +61,11 @@ class AddNewSurveyModal extends Component {
         backdrop="static"
       >
         <ModalHeader toggle={toggleModal}>
-          <IntlMessages id="survey.add-new-title" />
+          <IntlMessages id="emergency.add-new-title" />
         </ModalHeader>
         <ModalBody>
           <Label className="mt-4">
-            <IntlMessages id="survey.title" />
+            <IntlMessages id="emergency.title" />
           </Label>
           <Input
             type="text"
@@ -71,9 +74,19 @@ class AddNewSurveyModal extends Component {
               this.setState({ title: event.target.value });
             }}
           />
+          <Label className="mt-4">
+            <IntlMessages id="emergency.detail" />
+          </Label>
+          <Input
+            type="textarea"
+            defaultValue={this.state.detail}
+            onChange={event => {
+              this.setState({ detail: event.target.value });
+            }}
+          />
 
           <Label className="mt-4">
-            <IntlMessages id="survey.category" />
+            <IntlMessages id="emergency.category" />
           </Label>
           <Select
             components={{ Input: CustomSelectInput }}
@@ -89,7 +102,7 @@ class AddNewSurveyModal extends Component {
             }}
           />
           <Label className="mt-4">
-            <IntlMessages id="survey.label" />
+            <IntlMessages id="emergency.label" />
           </Label>
           <Select
             components={{ Input: CustomSelectInput }}
@@ -111,7 +124,7 @@ class AddNewSurveyModal extends Component {
           />
 
           <Label className="mt-4">
-            <IntlMessages id="survey.status" />
+            <IntlMessages id="emergency.status" />
           </Label>
           <CustomInput
             type="radio"
@@ -121,7 +134,7 @@ class AddNewSurveyModal extends Component {
             checked={this.state.status === "COMPLETED"}
             onChange={event => {
               this.setState({
-                status: event.target.value === "on" ? "COMPLETED" : "ACTIVE"
+                status: event.target.value === "on" ? "COMPLETED" : "PENDING"
               });
             }}
           />
@@ -129,36 +142,36 @@ class AddNewSurveyModal extends Component {
             type="radio"
             id="exCustomRadio2"
             name="customRadio2"
-            label="ACTIVE"
-            checked={this.state.status === "ACTIVE"}
+            label="PENDING"
+            defaultChecked={this.state.status === "PENDING"}
             onChange={event => {
               this.setState({
-                status: event.target.value !== "on" ? "COMPLETED" : "ACTIVE"
+                status: event.target.value !== "on" ? "COMPLETED" : "PENDING"
               });
             }}
           />
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" outline onClick={toggleModal}>
-            <IntlMessages id="survey.cancel" />
+            <IntlMessages id="emergency.cancel" />
           </Button>
           <Button color="primary" onClick={() => this.addNetItem()}>
-            <IntlMessages id="survey.submit" />
-          </Button>
+            <IntlMessages id="emergency.submit" />
+          </Button>{" "}
         </ModalFooter>
       </Modal>
     );
   }
 }
 
-const mapStateToProps = ({ surveyListApp }) => {
+const mapStateToProps = ({ emergencyApp }) => {
   return {
-    surveyListApp
+    emergencyApp
   };
 };
 export default connect(
   mapStateToProps,
   {
-    addSurveyItem
+    addEmergencyItem
   }
-)(AddNewSurveyModal);
+)(AddNewEmergencyModal);

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { Colxx } from "../common/CustomBootstrap";
 
-const TodoListItem = ({ item, handleCheckChange,isSelected }) => {
+const EmergencyListItem = ({ item, handleCheckChange,isSelected }) => {
   return (
     <Colxx xxs="12">
       <Card className="card d-flex mb-3">
@@ -12,7 +12,7 @@ const TodoListItem = ({ item, handleCheckChange,isSelected }) => {
           <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
             <NavLink
               to="#"
-              id={`toggler${item.id}`}
+              id={`toggler${item._id}`}
               className="list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1"
             >
               <i
@@ -22,13 +22,13 @@ const TodoListItem = ({ item, handleCheckChange,isSelected }) => {
                     : "simple-icon-refresh heading-icon"
                 }`}
               />
-              <span className="align-middle d-inline-block">{item.title}</span>
+              <span className="align-middle d-inline-block">{item.code}</span>
             </NavLink>
             <p className="mb-1 text-muted text-small w-15 w-xs-100">
-              {item.category}
+              {item.reason_call}
             </p>
             <p className="mb-1 text-muted text-small w-15 w-xs-100">
-              {item.createDate}
+              {item.createdAt}
             </p>
             <div className="w-15 w-xs-100">
               <Badge color={item.labelColor} pill>
@@ -48,11 +48,14 @@ const TodoListItem = ({ item, handleCheckChange,isSelected }) => {
           </div>
         </div>
         <div className="card-body pt-1">
-          <p className="mb-0">{item.detail}</p>
+          <p className="mb-0">{item.address}</p>
+        </div>
+        <div className="card-body pt-1">
+          <p className="mb-0">{item.reference}</p>
         </div>
       </Card>
     </Colxx>
   );
 };
 
-export default React.memo(TodoListItem);
+export default React.memo(EmergencyListItem);

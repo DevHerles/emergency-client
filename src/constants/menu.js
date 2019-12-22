@@ -6,47 +6,32 @@ const data = [
     to: "/app/dashboards",
     subs: [
       {
-        icon: "simple-icon-briefcase",
-        label: "menu.default",
-        to: "/app/dashboards/default"
-      },
-      {
         icon: "simple-icon-pie-chart",
         label: "menu.analytics",
-        to: "/app/dashboards/analytics"
-      },
-      {
-        icon: "simple-icon-basket-loaded",
-        label: "menu.ecommerce",
-        to: "/app/dashboards/ecommerce"
-      },
-      {
-        icon: "simple-icon-doc",
-        label: "menu.content",
-        to: "/app/dashboards/content"
+        to: "/app/dashboards/default"
       }
     ]
   },
   {
-    id: "emergencies",
+    id: "emergency",
     icon: "iconsminds-ambulance",
     label: "emergency",
-    to: "/app/emergencies",
+    to: "/app/emergency",
     subs: [
       {
         icon: "iconsminds-headset",
         label: "emergency.calls",
-        to: "/app/emergencies/calls"
+        to: "/app/emergency/calls"
       },
       {
         icon: "iconsminds-first-aid",
         label: "emergency.regulations",
-        to: "/app/emergencies/regulations"
+        to: "/app/emergency/regulations"
       },
       {
         icon: "iconsminds-clinic",
         label: "emergency.dispatches",
-        to: "/app/emergencies/dispatches"
+        to: "/app/emergency/dispatches"
       }
     ]
   }

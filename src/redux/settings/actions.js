@@ -2,7 +2,6 @@ import {
     CHANGE_LOCALE
 } from '../actions';
 
-
 export const changeLocale = (locale) => {
     localStorage.setItem('currentLanguage', locale);
     return (
@@ -12,4 +11,3 @@ export const changeLocale = (locale) => {
         }
     )
 }
-

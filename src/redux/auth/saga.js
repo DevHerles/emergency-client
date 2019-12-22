@@ -1,11 +1,15 @@
 
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
+import axios from 'axios'
+
 import {
     LOGIN_USER,
     REGISTER_USER,
     LOGOUT_USER
 } from '../actions';
+
+import { emergencyApi } from '../../constants/defaultValues';
 
 import {
     loginUserSuccess,
@@ -13,23 +17,21 @@ import {
 } from './actions';
 
 const loginWithEmailPasswordAsync = async (email, password) =>
-    await auth.signInWithEmailAndPassword(email, password)
+    await axios.post( emergencyApi + '/users/signin', {email, password})
         .then(authUser => authUser)
-        .catch(error => error);
-
-
+        .catch(error => error);    
 
 function* loginWithEmailPassword({ payload }) {
     const { email, password } = payload.user;
     const { history } = payload;
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
-        if (!loginUser.message) {
-            localStorage.setItem('user_id', loginUser.user.uid);
+        if (!loginUser.response) {
+            localStorage.setItem('user_id', loginUser.data.token);
             yield put(loginUserSuccess(loginUser));
             history.push('/');
         } else {
-            console.log('login failed :', loginUser.message)
+            console.log('login failed :', loginUser.response.data)
         }
     } catch (error) {
         console.log('login error : ', error)
@@ -58,8 +60,6 @@ function* registerWithEmailPassword({ payload }) {
     }
 }
 
-
-
 const logoutAsync = async (history) => {
     await auth.signOut().then(authUser => authUser).catch(error => error);
     history.push('/')
@@ -74,8 +74,6 @@ function* logout({payload}) {
     }
 }
 
-
-
 export function* watchRegisterUser() {
     yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
@@ -87,7 +85,6 @@ export function* watchLoginUser() {
 export function* watchLogoutUser() {
     yield takeEvery(LOGOUT_USER, logout);
 }
-
 
 export default function* rootSaga() {
     yield all([

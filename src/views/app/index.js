@@ -15,7 +15,7 @@ class App extends Component {
         <Switch>
           <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboards`} />
           <Route path={`${match.url}/dashboards`} component={dashboards} />
-          <Route path={`${match.url}/emergencies`} component={emergencies} />
+          <Route path={`${match.url}/emergency`} component={emergencies} />
           <Redirect to="/error" />
         </Switch>
       </AppLayout>

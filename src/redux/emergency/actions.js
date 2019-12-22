@@ -1,62 +1,62 @@
 import {
-    CALLS_GET_LIST,
-    CALLS_GET_LIST_SUCCESS,
-    CALLS_GET_LIST_ERROR,
-    CALLS_GET_LIST_WITH_FILTER,
-    CALLS_GET_LIST_WITH_ORDER,
-    CALLS_GET_LIST_SEARCH,
-    CALLS_ADD_ITEM,
-    CALLS_ADD_ITEM_SUCCESS,
-    CALLS_ADD_ITEM_ERROR,
-    CALLS_SELECTED_ITEMS_CHANGE
+    EMERGENCY_GET_LIST,
+    EMERGENCY_GET_LIST_SUCCESS,
+    EMERGENCY_GET_LIST_ERROR,
+    EMERGENCY_GET_LIST_WITH_FILTER,
+    EMERGENCY_GET_LIST_WITH_ORDER,
+    EMERGENCY_GET_LIST_SEARCH,
+    EMERGENCY_ADD_ITEM,
+    EMERGENCY_ADD_ITEM_SUCCESS,
+    EMERGENCY_ADD_ITEM_ERROR,
+    EMERGENCY_SELECTED_ITEMS_CHANGE
 } from '../actions';
 
 
-export const getCallsList = () => ({
-    type: CALLS_GET_LIST
+export const getEmergencyList = () => ({
+    type: EMERGENCY_GET_LIST
 });
 
-export const getCallsListSuccess = (items) => ({
-    type: CALLS_GET_LIST_SUCCESS,
+export const getEmergencyListSuccess = (items) => ({
+    type: EMERGENCY_GET_LIST_SUCCESS,
     payload: items
 });
 
-export const getCallsListError = (error) => ({
-    type: CALLS_GET_LIST_ERROR,
+export const getEmergencyListError = (error) => ({
+    type: EMERGENCY_GET_LIST_ERROR,
     payload: error
 });
 
-export const getCallsListWithFilter = (column, value) => ({
-    type: CALLS_GET_LIST_WITH_FILTER,
+export const getEmergencyListWithFilter = (column, value) => ({
+    type: EMERGENCY_GET_LIST_WITH_FILTER,
     payload: { column, value }
 });
 
-export const getCallsListWithOrder = (column) => ({
-    type: CALLS_GET_LIST_WITH_ORDER,
+export const getEmergencyListWithOrder = (column) => ({
+    type: EMERGENCY_GET_LIST_WITH_ORDER,
     payload: column
 });
 
-export const getCallsListSearch = (keyword) => ({
-    type: CALLS_GET_LIST_SEARCH,
+export const getEmergencyListSearch = (keyword) => ({
+    type: EMERGENCY_GET_LIST_SEARCH,
     payload: keyword
 });
 
-export const addCallsItem = (item) => ({
-    type: CALLS_ADD_ITEM,
+export const addEmergencyItem = (item) => ({
+    type: EMERGENCY_ADD_ITEM,
     payload: item
 });
 
-export const addCallsItemSuccess = (items) => ({
-    type: CALLS_ADD_ITEM_SUCCESS,
+export const addEmergencyItemSuccess = (items) => ({
+    type: EMERGENCY_ADD_ITEM_SUCCESS,
     payload: items
 });
 
-export const addCallsItemError = (error) => ({
-    type: CALLS_ADD_ITEM_ERROR,
+export const addEmergencyItemError = (error) => ({
+    type: EMERGENCY_ADD_ITEM_ERROR,
     payload: error
 });
 
-export const selectedCallsItemsChange = (selectedItems) => ({
-    type: CALLS_SELECTED_ITEMS_CHANGE,
+export const selectedEmergencyItemsChange = (selectedItems) => ({
+    type: EMERGENCY_SELECTED_ITEMS_CHANGE,
     payload: selectedItems
 });

@@ -23,12 +23,32 @@
       {
         "title": "Take photos of cakes",
         "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-        "category" : "Flexbox",
+        "category" : "Emergency",
         "createDate" : "15.09.2018",
         "status" : "COMPLETED",
         "label": "PERSONAL",
         "labelColor": "info",
         "id": 3
+      },
+      {
+        "title": "Demo!!!",
+        "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "category" : "Emergency",
+        "createDate" : "15.09.2018",
+        "status" : "COMPLETED",
+        "label": "PERSONAL",
+        "labelColor": "info",
+        "id": 4
+      },
+      {
+        "title": "React redux apps",
+        "detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        "category" : "Emergency",
+        "createDate" : "15.09.2018",
+        "status" : "COMPLETED",
+        "label": "PERSONAL",
+        "labelColor": "info",
+        "id": 5
       }
     ]
   }

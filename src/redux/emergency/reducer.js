@@ -30,7 +30,7 @@ const INIT_STATE = {
 		{ column: "status", label: "Status" },
 		{ column: "label", label: "Label" },
 	],
-	categories: ["Emergency", "Sass", "React"],
+	categories: ["Atendido", "Frustrado", "Cancelado"],
 	selectedItems: []
 };
 

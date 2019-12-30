@@ -17,7 +17,8 @@ import emergencyData from "../../data/emergency.json";
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  config.headers['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTUVSR0VOQ1kiLCJzdWIiOiI1ZGUwMWRmY2I5Y2Q3YjM3ZTI4ZWVjMWQiLCJpYXQiOjE1Nzc0NzQ5Mjg5MjgsImV4cCI6MTU3NzU2MTMyODkyOH0.m_1dA5o9JQyvqgzCJ5PyY5Swrj07c7mXDZHMqh3cqjc";
+  //config.headers['Authorization'] = localStorage.getItem('user_id');
+  config.headers['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTUVSR0VOQ1kiLCJzdWIiOiI1ZGRmZGE2NmM3NGQwZTM0MzcyMjgwYjEiLCJpYXQiOjE1Nzc3MTk0OTgwNzIsImV4cCI6MTU3NzgwNTg5ODA3Mn0.guP_lww6TNKZZTMyzdKZDPbgzXHCYAyQtKwrJaQmNi4"
   return config;
 }, function (error) {
   // Do something with request error
@@ -39,18 +40,15 @@ function* getEmergencyListItems() {
   }
 }
 
-const addEmergencyItemRequest = async item => {
-  let items = emergencyData.data;
-  item.id = items.length + 1;
-  item.createDate = getDateWithFormat();
-  items.splice(0, 0, item);
-  return await new Promise((success, fail) => {
-    setTimeout(() => {
-      success(items);
-    }, 1000);
-  })
-    .then(response => response)
+const addEmergencyItemRequest = async (item) => {
+  let emergencies = await axios.post( emergencyApi + '/emergencies/add', item)
+    .then(() =>  {
+      return axios.get(emergencyApi + '/emergencies')
+        .then(emergencies => emergencies)
+        .catch(error => error);
+    })
     .catch(error => error);
+  return emergencies.data;
 };
 
 function* addEmergencyItem({ payload }) {

@@ -21,32 +21,27 @@ class AddNewEmergencyModal extends Component {
     super(props);
 
     this.state = {
-      code: "",
       reason_call: "",
       address: "",
       phone_number: "",
-      category: "",
-      status: "PENDING"
+      requested_by: ""
     };
   }
 
   addNetItem = () => {
     const newItem = {
-      code: this.state.code,
       reason_call: this.state.reason_call,
       address: this.state.address,
       phone_number: this.state.phone_number,
-      category: this.state.category,
-      status: this.state.status
+      requested_by: this.state.requested_by
     };
     this.props.addEmergencyItem(newItem);
     this.props.toggleModal();
     this.setState({
-      code: "",
       reason_call: "",
       address: "",
-      category: "",
-      status: "PENDING"
+      phone_number: "",
+      requested_by: ""
     });
   };
 
@@ -64,29 +59,38 @@ class AddNewEmergencyModal extends Component {
           <IntlMessages id="emergency.add-new-title" />
         </ModalHeader>
         <ModalBody>
-          <Label className="mt-4">
-            <IntlMessages id="emergency.title" />
+        <Label className="mt-4">
+            <IntlMessages id="emergency.operator.phone_number" />
           </Label>
           <Input
             type="text"
-            defaultValue={this.state.title}
+            defaultValue={this.state.phone_number}
             onChange={event => {
-              this.setState({ title: event.target.value });
+              this.setState({ phone_number: event.target.value });
             }}
           />
           <Label className="mt-4">
-            <IntlMessages id="emergency.detail" />
+            <IntlMessages id="emergency.operator.reason_call" />
+          </Label>
+          <Input
+            type="text"
+            defaultValue={this.state.reason_call}
+            onChange={event => {
+              this.setState({ reason_call: event.target.value });
+            }}
+          />
+          <Label className="mt-4">
+            <IntlMessages id="emergency.operator.address" />
           </Label>
           <Input
             type="textarea"
-            defaultValue={this.state.detail}
+            defaultValue={this.state.address}
             onChange={event => {
-              this.setState({ detail: event.target.value });
+              this.setState({ address: event.target.value });
             }}
           />
-
           <Label className="mt-4">
-            <IntlMessages id="emergency.category" />
+            <IntlMessages id="emergency.operator.requested_by" />
           </Label>
           <Select
             components={{ Input: CustomSelectInput }}
@@ -96,9 +100,9 @@ class AddNewEmergencyModal extends Component {
             options={categories.map((x, i) => {
               return { label: x, value: x, key: i };
             })}
-            value={this.state.category}
+            value={this.state.requested_by}
             onChange={val => {
-              this.setState({ category: val });
+              this.setState({ requested_by: val });
             }}
           />
           <Label className="mt-4">

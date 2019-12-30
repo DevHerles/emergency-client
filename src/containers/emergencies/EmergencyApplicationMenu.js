@@ -27,7 +27,7 @@ class EmergencyApplicationMenu extends Component {
       categories
     } = this.props.emergencyApp;
 
-    console.log(this.props.emergencyApp);
+    //console.log(this.props.emergencyApp);
 
     return (
       <ApplicationMenu>
@@ -36,13 +36,13 @@ class EmergencyApplicationMenu extends Component {
         >
           <div className="p-4">
             <p className="text-muted text-small">
-              <IntlMessages id="todo.status" />
+              <IntlMessages id="emergency.status" />
             </p>
             <ul className="list-unstyled mb-5">
               <NavItem className={classnames({ active: !filter })}>
                 <NavLink to="#" onClick={e => this.addFilter("", "")}>
                   <i className="simple-icon-reload" />
-                  <IntlMessages id="todo.all-tasks" />
+                  <IntlMessages id="emergency.all-emergencies" />
                   <span className="float-right">
                     {loading && allEmergencyItems.length}
                   </span>
@@ -61,7 +61,7 @@ class EmergencyApplicationMenu extends Component {
                   onClick={e => this.addFilter("status", "PENDING")}
                 >
                   <i className="simple-icon-refresh" />
-                  <IntlMessages id="todo.pending-tasks" />
+                  <IntlMessages id="emergency.pending-emergencies" />
                   <span className="float-right">
                     {loading &&
                       allEmergencyItems.filter(x => x.status === "PENDING").length}
@@ -81,7 +81,7 @@ class EmergencyApplicationMenu extends Component {
                   onClick={e => this.addFilter("status", "COMPLETED")}
                 >
                   <i className="simple-icon-check" />
-                  <IntlMessages id="todo.completed-tasks" />
+                  <IntlMessages id="emergency.attended-emergencies" />
                   <span className="float-right">
                     {loading &&
                       allEmergencyItems.filter(x => x.status === "COMPLETED").length}
@@ -90,7 +90,7 @@ class EmergencyApplicationMenu extends Component {
               </NavItem>
             </ul>
             <p className="text-muted text-small">
-              <IntlMessages id="todo.categories" />
+              <IntlMessages id="emergency.categories" />
             </p>
             <ul className="list-unstyled mb-5">
               {categories.map((c, index) => {
@@ -115,7 +115,7 @@ class EmergencyApplicationMenu extends Component {
               })}
             </ul>
             <p className="text-muted text-small">
-              <IntlMessages id="todo.labels" />
+              <IntlMessages id="emergency.labels" />
             </p>
             <div>
               {labels.map((l, index) => {

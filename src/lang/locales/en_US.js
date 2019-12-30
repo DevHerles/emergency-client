@@ -53,9 +53,10 @@ module.exports = {
   "user.username": "Username",
 
   /* 03.Menu */
-  "menu.app": "Home",
+  "menu.app": "Inicio",
   "menu.dashboards": "Dashboards",
   "menu.emergency": "Emergencias",
+  "menu.calls": "Llamadas recibidas",
   "menu.regulations": "Regulaciones",
   "menu.dispatches": "Despachos",
   "menu.default": "Default",
@@ -195,6 +196,10 @@ module.exports = {
   /* Emergencias */
   "emergency": "Emergencias",
   "emergency.calls": "Llamada recibidas",
+  "emergency.operator.phone_number": "Número celular/teléfono",
+  "emergency.operator.reason_call": "Motivo de llamada",
+  "emergency.operator.address": "Dirección de la emergencia",
+  "emergency.operator.requested_by": "Solicitaod por",
   "emergency.regulations": "Regulaciones",
   "emergency.dispatches": "Despachos",
   "emergency.add-new": "Nueva emergencia",

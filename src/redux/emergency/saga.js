@@ -9,16 +9,15 @@ import {
   getEmergencyListSuccess,
   getEmergencyListError,
   addEmergencyItemSuccess,
-  addEmergencyItemError
+  addEmergencyItemError,
+  unauthorizedEmergency
 } from "./actions";
 
 import emergencyData from "../../data/emergency.json";
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  //config.headers['Authorization'] = localStorage.getItem('user_id');
-  config.headers['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTUVSR0VOQ1kiLCJzdWIiOiI1ZGRmZGE2NmM3NGQwZTM0MzcyMjgwYjEiLCJpYXQiOjE1Nzc3MTk0OTgwNzIsImV4cCI6MTU3NzgwNTg5ODA3Mn0.guP_lww6TNKZZTMyzdKZDPbgzXHCYAyQtKwrJaQmNi4"
+  config.headers['Authorization'] = localStorage.getItem('token');
   return config;
 }, function (error) {
   // Do something with request error
@@ -33,8 +32,14 @@ const getEmergencyListRequest = async () => {
 
 function* getEmergencyListItems() {
   try {
-    const response = yield call(getEmergencyListRequest);
-    yield put(getEmergencyListSuccess(response));
+    const emergencies = yield call(getEmergencyListRequest);
+    if (emergencies.status === 200){
+      yield put(getEmergencyListSuccess(emergencies));
+    } else if (emergencies.status === 401){
+      yield put(unauthorizedEmergency());  
+    } else {
+      yield put(getEmergencyListError(emergencies));  
+    }
   } catch (error) {
     yield put(getEmergencyListError(error));
   }

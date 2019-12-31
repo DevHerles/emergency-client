@@ -10,8 +10,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "user@user.com",
-      password: "user"
+      email: "",
+      password: ""
     };
   }
   onUserLogin() {
@@ -46,11 +46,23 @@ class Login extends Component {
               </CardTitle>
               <Form>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="email" defaultValue={this.state.email} />
+                  <Input
+                    type="email"
+                    defaultValue={this.state.email}
+                    onChange={event => {
+                      this.setState({ email: event.target.value });
+                    }}
+                  />
                   <IntlMessages id="user.email" />
                 </Label>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="password" />
+                  <Input
+                    type="password"
+                    defaultValue={this.state.password}
+                    onChange={event => {
+                      this.setState({ password: event.target.value });
+                    }}
+                  />
                   <IntlMessages
                     id="user.password"
                     defaultValue={this.state.password}

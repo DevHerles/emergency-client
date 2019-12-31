@@ -27,7 +27,9 @@ function* loginWithEmailPassword({ payload }) {
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
         if (!loginUser.response) {
-            localStorage.setItem('user_id', loginUser.data.token);
+            localStorage.setItem('token', loginUser.data.token);
+            localStorage.setItem('user_id', loginUser.data.user_id);
+            localStorage.setItem('customThemeColor', loginUser.data.theme);
             yield put(loginUserSuccess(loginUser));
             history.push('/');
         } else {
@@ -49,7 +51,7 @@ function* registerWithEmailPassword({ payload }) {
     try {
         const registerUser = yield call(registerWithEmailPasswordAsync, email, password);
         if (!registerUser.message) {
-            localStorage.setItem('user_id', registerUser.user.uid);
+            localStorage.setItem('token', registerUser.user.uid);
             yield put(registerUserSuccess(registerUser));
             history.push('/')
         } else {
@@ -69,7 +71,7 @@ function* logout({payload}) {
     const { history } = payload
     try {
         yield call(logoutAsync,history);
-        localStorage.removeItem('user_id');
+        localStorage.removeItem('token');
     } catch (error) {
     }
 }

@@ -1,4 +1,5 @@
 import {
+    EMERGENCY_UNAUTHORIZED,
     EMERGENCY_GET_LIST,
     EMERGENCY_GET_LIST_SUCCESS,
     EMERGENCY_GET_LIST_ERROR,
@@ -11,6 +12,9 @@ import {
     EMERGENCY_SELECTED_ITEMS_CHANGE
 } from '../actions';
 
+export const unauthorizedEmergency = () => ({
+    type: EMERGENCY_UNAUTHORIZED
+});
 
 export const getEmergencyList = () => ({
     type: EMERGENCY_GET_LIST

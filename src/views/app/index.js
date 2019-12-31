@@ -7,9 +7,16 @@ import dashboards from "./dashboards";
 import emergencies from "./emergencies";
 
 class App extends Component {
+  componentDidMount() {
+    if (localStorage.getItem("themeColor") !== localStorage.getItem('customThemeColor')) {
+      localStorage.setItem("themeColor", localStorage.getItem("customThemeColor"));
+      setTimeout(() => {
+        window.location.reload();
+      }, 10);
+    }
+  }
   render() {
     const { match } = this.props;
-
     return (
       <AppLayout>
         <Switch>

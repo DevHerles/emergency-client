@@ -1,4 +1,5 @@
 import {
+	EMERGENCY_UNAUTHORIZED,
 	EMERGENCY_GET_LIST,
 	EMERGENCY_GET_LIST_SUCCESS,
 	EMERGENCY_GET_LIST_ERROR,
@@ -36,6 +37,9 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
 	switch (action.type) {
+
+		case EMERGENCY_UNAUTHORIZED:
+			return this.props.history.push('/');
 
 		case EMERGENCY_GET_LIST:
 			return { ...state, loading: false };

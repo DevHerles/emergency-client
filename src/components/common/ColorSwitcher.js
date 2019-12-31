@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
+
+import { emergencyApi } from "../../constants/defaultValues";
 
 class ColorSwitcher extends Component {
   constructor(props) {
@@ -27,13 +30,18 @@ class ColorSwitcher extends Component {
       isOpen: !isOpen
     });
   };
-  changeThemeColor = (e, color) => {
+  changeThemeColor = async (e, color) => {
     e.preventDefault();
-    localStorage.setItem("themeColor", color);
-    this.toggle(e);
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    await axios.post(emergencyApi + "/themes/add", {user_id: localStorage.getItem("user_id"), theme: color})
+      .then(() => {
+        localStorage.setItem("themeColor", color);
+        localStorage.setItem('customThemeColor', color);
+        this.toggle(e);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch(error => error);
   };
 
   componentWillMount() {

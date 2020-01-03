@@ -56,6 +56,7 @@ module.exports = {
   "menu.app": "Inicio",
   "menu.dashboards": "Dashboards",
   "menu.emergency": "Emergencias",
+  "menu.emergency-list": "Emergencias",
   "menu.calls": "Llamadas recibidas",
   "menu.regulations": "Regulaciones",
   "menu.dispatches": "Despachos",
@@ -195,6 +196,7 @@ module.exports = {
   
   /* Emergencias */
   "emergency": "Emergencias",
+  "emergency.order-by": "Ordenado por",
   "emergency.calls": "Llamada recibidas",
   "emergency.operator.phone_number": "Número celular/teléfono",
   "emergency.operator.reason_call": "Motivo de llamada",

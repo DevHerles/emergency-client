@@ -22,7 +22,7 @@ export const firebaseConfig = {
 };
 
 export const searchPath = "/app/pages/search";
-export const servicePath = "https://api.coloredstrategies.com";
+export const servicePath = "http://localhost:5001"; //"https://api.coloredstrategies.com";
 export const emergencyApi = "http://localhost:5001";
 
 /* 

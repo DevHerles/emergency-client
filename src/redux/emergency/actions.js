@@ -9,7 +9,10 @@ import {
     EMERGENCY_ADD_ITEM,
     EMERGENCY_ADD_ITEM_SUCCESS,
     EMERGENCY_ADD_ITEM_ERROR,
-    EMERGENCY_SELECTED_ITEMS_CHANGE
+    EMERGENCY_SELECTED_ITEMS_CHANGE,
+    EMERGENCY_DELETE_ITEM,
+    EMERGENCY_DELETE_ITEM_SUCCESS,
+    EMERGENCY_DELETE_ITEM_ERROR
 } from '../actions';
 
 export const unauthorizedEmergency = () => ({
@@ -59,6 +62,21 @@ export const addEmergencyItemError = (error) => ({
     type: EMERGENCY_ADD_ITEM_ERROR,
     payload: error
 });
+
+export const deleteEmergencyItem = (item) => ({
+    type: EMERGENCY_DELETE_ITEM,
+    payload: item
+})
+
+export const deleteEmergencyItemSuccess = (items) => ({
+    type: EMERGENCY_DELETE_ITEM_SUCCESS,
+    payload: items
+})
+
+export const deleteEmergencyItemError = (error) => ({
+    type: EMERGENCY_DELETE_ITEM_ERROR,
+    payload: error
+})
 
 export const selectedEmergencyItemsChange = (selectedItems) => ({
     type: EMERGENCY_SELECTED_ITEMS_CHANGE,

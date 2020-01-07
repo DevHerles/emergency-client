@@ -12,6 +12,7 @@
     "formik": "^1.5.8",
     "formik-fields": "^0.2.1",
     "formix": "0.0.1",
+    "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "mousetrap": "^1.6.3",
     "node-sass": "^4.13.0",

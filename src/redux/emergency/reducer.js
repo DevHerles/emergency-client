@@ -9,7 +9,10 @@ import {
 	EMERGENCY_ADD_ITEM,
 	EMERGENCY_ADD_ITEM_SUCCESS,
 	EMERGENCY_ADD_ITEM_ERROR,
-	EMERGENCY_SELECTED_ITEMS_CHANGE
+	EMERGENCY_SELECTED_ITEMS_CHANGE,
+	EMERGENCY_DELETE_ITEM,
+	EMERGENCY_DELETE_ITEM_ERROR,
+	EMERGENCY_DELETE_ITEM_SUCCESS
 } from '../actions';
 
 const INIT_STATE = {
@@ -101,6 +104,15 @@ export default (state = INIT_STATE, action) => {
 			return { ...state, loading: true, allEmergencyItems: action.payload, emergencyItem: action.payload };
 
 		case EMERGENCY_ADD_ITEM_ERROR:
+			return { ...state, loading: true, error: action.payload };
+
+		case EMERGENCY_DELETE_ITEM:
+			return { ...state, loading: false};
+
+		case EMERGENCY_DELETE_ITEM_SUCCESS:
+			return { ...state, loading: true, allEmergencyItems: action.payload, emergencyItem: action.payload };
+		
+		case EMERGENCY_DELETE_ITEM_ERROR:
 			return { ...state, loading: true, error: action.payload };
 
 		case EMERGENCY_SELECTED_ITEMS_CHANGE:

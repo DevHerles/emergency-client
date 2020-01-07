@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { Row } from "reactstrap";
 
 import axios from "axios";
@@ -10,6 +11,8 @@ import Pagination from "../../../containers/emergencies/Pagination";
 import ContextMenuContainer from "../../../containers/emergencies/ContextMenuContainer";
 import ListPageHeading from "../../../containers/emergencies/ListPageHeading";
 import AddNewEmergencyModal from "../../../containers/emergencies/AddNewEmergencyModal";
+
+import { deleteEmergencyItem } from "../../../redux/actions";
 
 function collect(props) {
   return { data: props.data };
@@ -201,15 +204,15 @@ class DataListPages extends Component {
       )
       .then(res => {
         return res.data;
-      })
-      .then(data => {
-        this.setState({
-          totalPage: data.totalPage,
-          items: data.data,
-          selectedItems: [],
-          totalItemCount: data.totalItem,
-          isLoading: true
-        });
+      // })
+      // .then(data => {
+      //   this.setState({
+      //     totalPage: data.totalPage,
+      //     items: data.data,
+      //     selectedItems: [],
+      //     totalItemCount: data.totalItem,
+      //     isLoading: true
+      //   });
       });
   }
 
@@ -220,24 +223,26 @@ class DataListPages extends Component {
     );
     console.log("onContextMenuClick - action : ", data.action);
     if (data.action === 'delete') {
-      await axios.delete(servicePath + '/emergencies/' + this.state.selectedItems)
-        .then(response => {
-          console.log(response.data.message);
-          return axios.get(servicePath + '/emergencies')
-            .then(emergencies => {
-              this.setState({
-                totalPage: emergencies.data.totalPage,
-                items: emergencies.data.data,
-                selectedItems: [],
-                totalItemCount: emergencies.data.totalItem,
-                isLoading: true
-              });   
-            })
-            .catch(error => error);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.props.deleteEmergencyItem(this.state.selectedItems);
+      // await axios.delete(servicePath + '/emergencies/' + this.state.selectedItems)
+      //   .then(response => {
+      //     console.log(response.data.message);
+      //     return axios.get(servicePath + '/emergencies')
+      //       .then(emergencies => {
+      //         this.setState({
+      //           totalPage: emergencies.data.totalPage,
+      //           items: emergencies.data.data,
+      //           selectedItems: [],
+      //           totalItemCount: emergencies.data.totalItem,
+      //           isLoading: true
+      //         });   
+      //       })
+      //       .catch(error => error);
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+
     }
   };
 
@@ -327,4 +332,16 @@ class DataListPages extends Component {
     );
   }
 }
-export default DataListPages;
+
+const mapStateToProps = ({ emergencyApp }) => {
+  return {
+    emergencyApp
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    deleteEmergencyItem
+  }
+)(DataListPages);

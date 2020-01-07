@@ -1,6 +1,8 @@
 
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
+import { wsConnect, wsDisconnect } from '../webSocket/actions';
+
 import axios from 'axios'
 
 import {
@@ -9,7 +11,7 @@ import {
     LOGOUT_USER
 } from '../actions';
 
-import { emergencyApi } from '../../constants/defaultValues';
+import { emergencyApi, appSocketHost } from '../../constants/defaultValues';
 
 import {
     loginUserSuccess,
@@ -30,7 +32,10 @@ function* loginWithEmailPassword({ payload }) {
             localStorage.setItem('token', loginUser.data.token);
             localStorage.setItem('user_id', loginUser.data.user_id);
             localStorage.setItem('customThemeColor', loginUser.data.theme);
+            const host = `${appSocketHost}/?token=${loginUser.data.token}`;
             yield put(loginUserSuccess(loginUser));
+            yield put(wsConnect(host));
+            //yield put([loginUserSuccess(loginUser), wsConnect(host)]);
             history.push('/');
         } else {
             console.log('login failed :', loginUser.response.data)
@@ -70,7 +75,7 @@ const logoutAsync = async (history) => {
 function* logout({payload}) {
     const { history } = payload
     try {
-        yield call(logoutAsync,history);
+        yield call(logoutAsync,history, wsDisconnect);
         localStorage.removeItem('token');
     } catch (error) {
     }

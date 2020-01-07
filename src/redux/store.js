@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from "redux-saga";
 import reducers from './reducers';
 import sagas from "./sagas";
+//import wsMiddleware from "./../middleware/websocket.middelware"
 
 const sagaMiddleware = createSagaMiddleware();
 

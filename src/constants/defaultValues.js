@@ -24,6 +24,7 @@ export const firebaseConfig = {
 export const searchPath = "/app/pages/search";
 export const servicePath = "http://localhost:5001"; //"https://api.coloredstrategies.com";
 export const emergencyApi = "http://localhost:5001";
+export const appSocketHost = "ws://localhost:3000";
 
 /* 
 Color Options:

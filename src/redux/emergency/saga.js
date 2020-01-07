@@ -2,7 +2,7 @@ import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import { getDateWithFormat } from "../../helpers/Utils";
 import axios from 'axios';
 
-import { EMERGENCY_GET_LIST, EMERGENCY_ADD_ITEM } from "../actions";
+import { EMERGENCY_GET_LIST, EMERGENCY_ADD_ITEM, EMERGENCY_DELETE_ITEM } from "../actions";
 import { emergencyApi } from '../../constants/defaultValues';
 
 import {
@@ -10,7 +10,9 @@ import {
   getEmergencyListError,
   addEmergencyItemSuccess,
   addEmergencyItemError,
-  unauthorizedEmergency
+  unauthorizedEmergency,
+  deleteEmergencyItemSuccess,
+  deleteEmergencyItemError
 } from "./actions";
 
 import emergencyData from "../../data/emergency.json";
@@ -65,6 +67,26 @@ function* addEmergencyItem({ payload }) {
   }
 }
 
+const deleteEmergencyItemRequest = async (item) => {
+  let emergencies = await axios.delete( emergencyApi + '/emergencies/' + item)
+    .then(() => {
+      return axios.get(emergencyApi + '/emergencies')
+        .then(emergencies => emergencies)
+        .catch(error => error);
+    })
+    .catch(error => error);
+  return emergencies.data;
+}
+
+function* deleteEmergencyItem( { payload }) {
+  try {
+    const response = yield call(deleteEmergencyItemRequest, payload);
+    yield put(deleteEmergencyItemSuccess(response));
+  } catch (error) {
+    yield put(deleteEmergencyItemError(error));
+  }
+}
+
 export function* watchGetList() {
   yield takeEvery(EMERGENCY_GET_LIST, getEmergencyListItems);
 }
@@ -73,6 +95,14 @@ export function* wathcAddItem() {
   yield takeEvery(EMERGENCY_ADD_ITEM, addEmergencyItem);
 }
 
+export function* wathcDeleteItem() {
+  yield takeEvery(EMERGENCY_DELETE_ITEM, deleteEmergencyItem);
+}
+
 export default function* rootSaga() {
-  yield all([fork(watchGetList), fork(wathcAddItem)]);
+  yield all([
+    fork(watchGetList),
+    fork(wathcAddItem),
+    fork(wathcDeleteItem)
+  ]);
 }

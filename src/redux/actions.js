@@ -28,8 +28,19 @@ export const EMERGENCY_ADD_ITEM = "EMERGENCY_ADD_ITEM";
 export const EMERGENCY_ADD_ITEM_SUCCESS = "EMERGENCY_ADD_ITEM_SUCCESS";
 export const EMERGENCY_ADD_ITEM_ERROR = "EMERGENCY_ADD_ITEM_ERROR";
 export const EMERGENCY_SELECTED_ITEMS_CHANGE = "EMERGENCY_SELECTED_ITEMS_CHANGE";
+export const EMERGENCY_DELETE_ITEM = "EMERGENCY_DELETE_ITEM"
+export const EMERGENCY_DELETE_ITEM_SUCCESS = "EMERGENCY_DELETE_ITEM_SUCCESS"
+export const EMERGENCY_DELETE_ITEM_ERROR = "EMERGENCY_DELETE_ITEM_ERROR"
+
+/* WEBSOCKET */
+export const WS_CONNECT = "WS_CONNECT";
+export const WS_CONNECTING = "WS_CONNECTING";
+export const WS_CONNECTED = "WS_CONNECTED";
+export const WS_DISCONNECT = "WS_DISCONNECT";
+export const WS_DISCONNECTED = "WS_DISCONNECTED";
 
 export * from "./menu/actions";
 export * from "./settings/actions";
 export * from "./auth/actions";
 export * from "./emergency/actions";
+export * from "./webSocket/actions";

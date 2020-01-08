@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import reducers from './reducers';
 import sagas from "./sagas";
 //import wsMiddleware from "./../middleware/websocket.middelware"
+import setupSocket from "../redux/sockets";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +17,10 @@ export function configureStore(initialState) {
         compose(applyMiddleware(...middlewares))
     );
 
-    sagaMiddleware.run(sagas);
+    let username = "DevilServer";
+    const socket = setupSocket(store.dispatch, username)
+
+    sagaMiddleware.run(sagas, {socket, username});
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {

@@ -68,6 +68,9 @@ class Login extends Component {
                     defaultValue={this.state.password}
                   />
                 </Label>
+                <div className="danger">
+                  {this.props.error}
+                </div>
                 <div className="d-flex justify-content-between align-items-center">
                   <NavLink to={`/forgot-password`}>
                     <IntlMessages id="user.forgot-password-question" />
@@ -90,8 +93,8 @@ class Login extends Component {
   }
 }
 const mapStateToProps = ({ authUser }) => {
-  const { user, loading } = authUser;
-  return { user, loading };
+  const { user, loading, error } = authUser;
+  return { user, loading, error };
 };
 
 export default connect(

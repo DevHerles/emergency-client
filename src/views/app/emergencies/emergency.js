@@ -21,11 +21,16 @@ import {
   getEmergencyList,
   getEmergencyListWithOrder,
   getEmergencyListSearch,
-  selectedEmergencyItemsChange
+  selectedEmergencyItemsChange,
 } from "../../../redux/actions";
 import EmergencyListItem from "../../../components/emergencies/EmergencyListItem";
 import AddNewEmergencyModal from "../../../containers/emergencies/AddNewEmergencyModal";
+//import { AddMessage } from "../../../containers/emergencies/AddMessage"
+
 import EmergencyApplicationMenu from "../../../containers/emergencies/EmergencyApplicationMenu";
+
+import TaskList from '../../../components/socket.io/TaskList';
+import Buttons from '../../../components/socket.io/Buttons';
 
 class EmergencyApp extends Component {
   constructor(props) {
@@ -252,7 +257,7 @@ class EmergencyApp extends Component {
             <Separator className="mb-5" />
             <Row>
               {loading ? (
-                allEmergencyItems.map((item, index) => (
+                allEmergencyItems.length > 0 ? (allEmergencyItems.map((item, index) => (
                   <EmergencyListItem
                     key={`emergency_item_${index}`}
                     item={item}
@@ -261,7 +266,7 @@ class EmergencyApp extends Component {
                       loading ? selectedItems.includes(item.id) : false
                     }
                   />
-                ))
+                )) ) : "xxx"
               ) : (
                 <div className="loading" />
               )}

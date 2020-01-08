@@ -12,7 +12,8 @@ import {
     EMERGENCY_SELECTED_ITEMS_CHANGE,
     EMERGENCY_DELETE_ITEM,
     EMERGENCY_DELETE_ITEM_SUCCESS,
-    EMERGENCY_DELETE_ITEM_ERROR
+    EMERGENCY_DELETE_ITEM_ERROR,
+    SOCKET_EMERGENCY_ADD_ITEM
 } from '../actions';
 
 export const unauthorizedEmergency = () => ({
@@ -50,6 +51,11 @@ export const getEmergencyListSearch = (keyword) => ({
 
 export const addEmergencyItem = (item) => ({
     type: EMERGENCY_ADD_ITEM,
+    payload: item
+});
+
+export const addSocketEmergencyItem = (item) => ({
+    type: SOCKET_EMERGENCY_ADD_ITEM,
     payload: item
 });
 

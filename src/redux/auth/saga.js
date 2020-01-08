@@ -15,6 +15,7 @@ import { emergencyApi, appSocketHost } from '../../constants/defaultValues';
 
 import {
     loginUserSuccess,
+    loginUserError,
     registerUserSuccess
 } from './actions';
 
@@ -35,13 +36,14 @@ function* loginWithEmailPassword({ payload }) {
             const host = `${appSocketHost}/?token=${loginUser.data.token}`;
             yield put(loginUserSuccess(loginUser));
             yield put(wsConnect(host));
-            //yield put([loginUserSuccess(loginUser), wsConnect(host)]);
             history.push('/');
         } else {
             console.log('login failed :', loginUser.response.data)
+            yield put(loginUserError(loginUser.response.data));
         }
     } catch (error) {
-        console.log('login error : ', error)
+        console.log('login error : ', error);
+        yield put(loginUserError(error));
     }
 }
 

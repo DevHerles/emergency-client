@@ -3,7 +3,8 @@ import {
   WS_CONNECTING,
   WS_CONNECTED,
   WS_DISCONNECT,
-  WS_DISCONNECTED
+  WS_DISCONNECTED,
+  WS_NEW_MESSAGE
 } from '../actions';
 
 export const wsConnect = host => ({
@@ -29,4 +30,19 @@ export const wsDisconnect = host => ({
 export const wsDisconnected = host => ({
   type: WS_DISCONNECTED,
   host
+});
+
+export const connectToSocketSuccess = socket => ({
+  type: WS_CONNECTED,
+  socket
+})
+
+export const connectToSocketError = error => ({
+  type: WS_DISCONNECTED,
+  error
+})
+
+export const newSocketMessage = (message) => ({
+  type: WS_NEW_MESSAGE,
+  payload: message
 });

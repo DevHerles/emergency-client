@@ -15,6 +15,7 @@ import CustomSelectInput from "../../components/common/CustomSelectInput";
 import IntlMessages from "../../helpers/IntlMessages";
 
 import { addEmergencyItem } from "../../redux/actions";
+import { newSocketMessage } from "../../redux/actions"; 
 
 class AddNewEmergencyModal extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class AddNewEmergencyModal extends Component {
       requested_by: this.state.requested_by
     };
     this.props.addEmergencyItem(newItem);
+    //this.props.newSocketMessage(newItem);
     this.props.toggleModal();
     this.setState({
       reason_call: "",
@@ -176,6 +178,7 @@ const mapStateToProps = ({ emergencyApp }) => {
 export default connect(
   mapStateToProps,
   {
-    addEmergencyItem
+    addEmergencyItem,
+    newSocketMessage
   }
 )(AddNewEmergencyModal);

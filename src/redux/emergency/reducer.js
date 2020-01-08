@@ -12,11 +12,12 @@ import {
 	EMERGENCY_SELECTED_ITEMS_CHANGE,
 	EMERGENCY_DELETE_ITEM,
 	EMERGENCY_DELETE_ITEM_ERROR,
-	EMERGENCY_DELETE_ITEM_SUCCESS
+	EMERGENCY_DELETE_ITEM_SUCCESS,
+	SOCKET_EMERGENCY_ADD_ITEM
 } from '../actions';
 
 const INIT_STATE = {
-	allEmergencyItems: null,
+	allEmergencyItems: [],
 	emergencyItem: null,
 	error: '',
 	filter: null,
@@ -48,7 +49,7 @@ export default (state = INIT_STATE, action) => {
 			return { ...state, loading: false };
 
 		case EMERGENCY_GET_LIST_SUCCESS:
-			return { ...state, loading: true, allEmergencyItems: action.payload.data, emergencyItem: action.payload.data };
+			return { ...state, loading: true, allEmergencyItems: action.payload.data.data, emergencyItem: action.payload.data.data };
 
 		case EMERGENCY_GET_LIST_ERROR:
 			return { ...state, loading: true, error: action.payload };
@@ -99,9 +100,15 @@ export default (state = INIT_STATE, action) => {
 
 		case EMERGENCY_ADD_ITEM:
 			return { ...state, loading: false };
+		
+		case SOCKET_EMERGENCY_ADD_ITEM:
+			const item = action.payload;
+			state.allEmergencyItems.splice(0, 0, item);
+			const items = [...state.allEmergencyItems];
+			return { ...state, loading: true, allEmergencyItems: items, emergencyItem: items };
 
 		case EMERGENCY_ADD_ITEM_SUCCESS:
-			return { ...state, loading: true, allEmergencyItems: action.payload, emergencyItem: action.payload };
+			return { ...state, loading: true, allEmergencyItems: action.payload.data, emergencyItem: action.payload.data };
 
 		case EMERGENCY_ADD_ITEM_ERROR:
 			return { ...state, loading: true, error: action.payload };

@@ -64,7 +64,7 @@ class EmergencyApplicationMenu extends Component {
                   <IntlMessages id="emergency.pending-emergencies" />
                   <span className="float-right">
                     {loading &&
-                      allEmergencyItems.filter(x => x.status === "PENDING").length}
+                      allEmergencyItems.length > 0 ? (allEmergencyItems.filter(x => x.status === "PENDING").length) : ""}
                   </span>
                 </NavLink>
               </NavItem>
@@ -84,7 +84,7 @@ class EmergencyApplicationMenu extends Component {
                   <IntlMessages id="emergency.attended-emergencies" />
                   <span className="float-right">
                     {loading &&
-                      allEmergencyItems.filter(x => x.status === "COMPLETED").length}
+                      allEmergencyItems.length > 0 ? (allEmergencyItems.filter(x => x.status === "COMPLETED").length) : ""}
                   </span>
                 </NavLink>
               </NavItem>

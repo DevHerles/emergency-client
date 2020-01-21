@@ -1,4 +1,5 @@
 import {
+
 	MENU_SET_CLASSNAMES,
 	MENU_CONTAINER_ADD_CLASSNAME,
 	MENU_CLICK_MOBILE_MENU,
@@ -7,6 +8,7 @@ import {
 } from '../actions';
 
 import {defaultMenuType,  subHiddenBreakpoint, menuHiddenBreakpoint } from '../../constants/defaultValues'
+
 
 const INIT_STATE = {
 	containerClassnames: defaultMenuType,

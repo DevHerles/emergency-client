@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import AppLayout from "../../layout/AppLayout";
 import dashboards from "./dashboards";
-import emergencies from "./emergencies";
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +21,6 @@ class App extends Component {
         <Switch>
           <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboards`} />
           <Route path={`${match.url}/dashboards`} component={dashboards} />
-          <Route path={`${match.url}/emergency`} component={emergencies} />
           <Redirect to="/error" />
         </Switch>
       </AppLayout>

@@ -12,7 +12,8 @@ import IntlMessages from "../../helpers/IntlMessages";
 import { AreaChart } from "../../components/charts";
 
 import { areaChartData } from "../../data/charts";
-
+const labels=["A", "B","C"]
+const datas=[90,20,60]
 const WebsiteVisitsChartCard = ({ className = "", controls = true }) => {
   return (
     <Card className={`${className} dashboard-filled-line-chart`}>
@@ -47,7 +48,7 @@ const WebsiteVisitsChartCard = ({ className = "", controls = true }) => {
       </CardBody>
 
       <div className="chart card-body pt-0">
-        <AreaChart shadow data={areaChartData} />
+        <AreaChart shadow data={areaChartData(labels, datas)} />
       </div>
     </Card>
   );

@@ -24,8 +24,8 @@ export const lineChartOptions = {
         ticks: {
           beginAtZero: true,
           stepSize: 5,
-          min: 50,
-          max: 70,
+          min: 0,
+          max: 10,
           padding: 20
         }
       }

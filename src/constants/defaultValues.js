@@ -2,7 +2,7 @@
 Menu Types:
 "menu-default", "menu-sub-hidden", "menu-hidden"
 */
-export const defaultMenuType = "menu-default";
+export const defaultMenuType = "menu-hidden";
 
 export const subHiddenBreakpoint = 1440;
 export const menuHiddenBreakpoint = 768;
@@ -22,9 +22,9 @@ export const firebaseConfig = {
 };
 
 export const searchPath = "/app/pages/search";
-export const servicePath = "http://192.168.0.4:5001"; //"https://api.coloredstrategies.com";
-export const emergencyApi = "http://192.168.0.4:5001";
-export const appSocketHost = "ws://192.168.0.4:5001";
+export const servicePath = "http://localhost:5001"; //"https://api.coloredstrategies.com";
+export const emergencyApi = "http://localhost:5001";
+export const appSocketHost = "ws://localhost:5001";
 
 /* 
 Color Options:

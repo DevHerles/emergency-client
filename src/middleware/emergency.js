@@ -16,7 +16,7 @@ export const createGame = roomName => dispatch => fetch(`${API_ROOT}/app/game/`,
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Token ${Cookies.get('token')}`,
+    //Authorization: `Token ${Cookies.get('token')}`,
   },
   body: JSON.stringify({ room_name: roomName }),
 })

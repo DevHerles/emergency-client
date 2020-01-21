@@ -129,7 +129,7 @@ module.exports = {
   "dashboards.completed-orders": "Pedidos Completados",
   "dashboards.refund-requests": "Petición de Reembolso",
   "dashboards.new-comments": "Nuevos Comentarios",
-  "dashboards.sales": "Ventas",
+  "dashboards.total_by_unities": "Total de atenciones por unidad",
   "dashboards.orders": "Pedidos",
   "dashboards.refunds": "Reembolso",
   "dashboards.recent-orders": "Pedidos Recientas",

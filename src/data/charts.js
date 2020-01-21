@@ -1,7 +1,26 @@
 import { ThemeColors } from '../helpers/ThemeColors'
 const colors = ThemeColors()
 
-export const lineChartData = {
+export const lineChartData = (labels, datas) => ({
+  labels: labels,
+  datasets: [
+    {
+      label: '',
+      data: datas,
+      borderColor: colors.themeColor1,
+      pointBackgroundColor: colors.foregroundColor,
+      pointBorderColor: colors.themeColor1,
+      pointHoverBackgroundColor: colors.themeColor1,
+      pointHoverBorderColor: colors.foregroundColor,
+      pointRadius: 6,
+      pointBorderWidth: 2,
+      pointHoverRadius: 8,
+      fill: true
+    }
+  ]
+})
+
+export const lineChartData2 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
@@ -36,12 +55,12 @@ export const polarAreaChartData = {
   ]
 }
 
-export const areaChartData = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+export const areaChartData = (labels, datas) => ({
+  labels: labels,
   datasets: [
     {
       label: '',
-      data: [54, 63, 60, 65, 60, 68, 60],
+      data: datas,
       borderColor: colors.themeColor1,
       pointBackgroundColor: colors.foregroundColor,
       pointBorderColor: colors.themeColor1,
@@ -55,7 +74,7 @@ export const areaChartData = {
       backgroundColor: colors.themeColor1_10
     }
   ]
-}
+});
 
 export const scatterChartData = {
   datasets: [
